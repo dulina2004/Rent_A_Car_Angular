@@ -16,6 +16,14 @@ module.exports = {
         },
       },
     },
+    // Overriding the default colors with custom colors only
+    colors: {
+      cust_grey: "#abb2bf",
+      cust_grey_dark: "#2c3036",
+      cust_background: "#282c33",
+      cust_pink: "#c778dd",
+      cust_white: "#fff",
+    },
   },
   plugins: [],
 };
