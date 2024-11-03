@@ -7,6 +7,9 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { SignupComponent } from './auth/components/signup/signup.component';
 import { LoginheaderComponent } from './auth/components/loginheader/loginheader.component';
 import { LandingpageComponent } from './auth/components/landingpage/landingpage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,13 +17,17 @@ import { LandingpageComponent } from './auth/components/landingpage/landingpage.
     LoginComponent,
     SignupComponent,
     LoginheaderComponent,
-    LandingpageComponent
+    LandingpageComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

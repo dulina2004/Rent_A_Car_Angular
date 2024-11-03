@@ -1,7 +1,7 @@
 <div
   class="min-h-screen flex items-center justify-center px-4 bg-cust_background text-cust_white"
   style="
-    background-image: url('../../../../assets/img/bg1.jpg');
+    background-image: url('../../../../assets/img/pexels-vladalex94-1402787.jpg');
     background-size: cover;
     background-position: center;
   "
@@ -9,28 +9,11 @@
   <div
     class="w-full max-w-md p-8 rounded-lg backdrop-blur-sm bg-opacity-90 border border-cust_pink shadow-lg"
   >
-    <!-- Heading -->
     <h2 class="text-3xl font-bold text-center mb-6">
       Create an Account at <span class="text-cust_pink">RentEase</span>
     </h2>
 
-    <!-- Sign-Up Form -->
-    <form (ngSubmit)="onSubmit()" class="space-y-6">
-      <!-- Name Input -->
-      <div>
-        <label for="name" class="block text-sm font-medium text-cust_grey mb-1">
-          Full Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink"
-          placeholder="Enter your full name"
-          required
-          name="name"
-        />
-      </div>
-
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-6">
       <!-- Email Input -->
       <div>
         <label
@@ -42,11 +25,34 @@
         <input
           type="email"
           id="email"
-          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink"
+          formControlName="email"
+          [ngClass]="{
+            'border-red-500':
+              signupForm.controls['email'].invalid &&
+              signupForm.controls['email'].touched,
+            'border-cust_grey':
+              signupForm.controls['email'].valid ||
+              !signupForm.controls['email'].touched
+          }"
+          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink border"
           placeholder="Enter your email"
           required
           name="email"
         />
+        <div
+          *ngIf="
+            signupForm.controls['email'].invalid &&
+            signupForm.controls['email'].touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          <span *ngIf="signupForm.controls['email'].errors?.['required']"
+            >Email is required.</span
+          >
+          <span *ngIf="signupForm.controls['email'].errors?.['email']"
+            >Please enter a valid email.</span
+          >
+        </div>
       </div>
 
       <!-- Password Input -->
@@ -60,11 +66,29 @@
         <input
           type="password"
           id="password"
-          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink"
+          formControlName="password"
+          [ngClass]="{
+            'border-red-500':
+              signupForm.controls['password'].invalid &&
+              signupForm.controls['password'].touched,
+            'border-cust_grey':
+              signupForm.controls['password'].valid ||
+              !signupForm.controls['password'].touched
+          }"
+          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink border"
           placeholder="Enter your password"
           required
           name="password"
         />
+        <div
+          *ngIf="
+            signupForm.controls['password'].invalid &&
+            signupForm.controls['password'].touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          Password is required.
+        </div>
       </div>
 
       <!-- Confirm Password Input -->
@@ -78,23 +102,80 @@
         <input
           type="password"
           id="confirmPassword"
-          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink"
+          formControlName="checkPassword"
+          [ngClass]="{
+            'border-red-500':
+              signupForm.controls['checkPassword'].invalid &&
+              signupForm.controls['checkPassword'].touched,
+            'border-cust_grey':
+              signupForm.controls['checkPassword'].valid ||
+              !signupForm.controls['checkPassword'].touched
+          }"
+          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink border"
           placeholder="Confirm your password"
           required
           name="confirmPassword"
         />
+        <div
+          *ngIf="
+            signupForm.controls['checkPassword'].invalid &&
+            signupForm.controls['checkPassword'].touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          <span
+            *ngIf="signupForm.controls['checkPassword'].errors?.['required']"
+            >Confirmation is required.</span
+          >
+          <span *ngIf="signupForm.controls['checkPassword'].errors?.['confirm']"
+            >Passwords do not match.</span
+          >
+        </div>
+      </div>
+
+      <!-- Name Input -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-cust_grey mb-1">
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          [ngClass]="{
+            'border-red-500':
+              signupForm.controls['name'].invalid &&
+              signupForm.controls['name'].touched,
+            'border-cust_grey':
+              signupForm.controls['name'].valid ||
+              !signupForm.controls['name'].touched
+          }"
+          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink border"
+          placeholder="Enter name"
+          required
+          name="name"
+        />
+        <div
+          *ngIf="
+            signupForm.controls['name'].invalid &&
+            signupForm.controls['name'].touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          Name is required.
+        </div>
       </div>
 
       <!-- Sign Up Button -->
       <button
         type="submit"
+        [disabled]="signupForm.invalid"
         class="w-full px-4 py-3 rounded-lg bg-cust_pink text-cust_white hover:bg-opacity-90 transition-opacity duration-200 font-medium text-lg"
       >
         Sign Up
       </button>
     </form>
 
-    <!-- Additional Links -->
     <div class="text-center mt-6 space-y-3">
       <a routerLink="/login" class="text-sm text-cust_pink hover:underline">
         Already have an account? Log in
