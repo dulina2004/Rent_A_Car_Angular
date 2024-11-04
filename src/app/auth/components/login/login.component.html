@@ -15,7 +15,7 @@
     </h2>
 
     <!-- Login Form -->
-    <form (ngSubmit)="onSubmit()" class="space-y-6">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
       <!-- Email Input -->
       <div>
         <label
@@ -27,11 +27,34 @@
         <input
           type="email"
           id="email"
-          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink"
+          formControlName="email"
+          [ngClass]="{
+            'border-red-500':
+              loginForm.controls['email'].invalid &&
+              loginForm.controls['email'].touched,
+            'border-cust_grey':
+              loginForm.controls['email'].valid ||
+              !loginForm.controls['email'].touched
+          }"
+          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink border"
           placeholder="Enter your email"
           required
           name="email"
         />
+        <div
+          *ngIf="
+            loginForm.controls['email'].invalid &&
+            loginForm.controls['email'].touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          <span *ngIf="loginForm.controls['email'].errors?.['required']">
+            Email is required.
+          </span>
+          <span *ngIf="loginForm.controls['email'].errors?.['email']">
+            Please enter a valid email.
+          </span>
+        </div>
       </div>
 
       <!-- Password Input -->
@@ -45,16 +68,35 @@
         <input
           type="password"
           id="password"
-          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink"
+          formControlName="password"
+          [ngClass]="{
+            'border-red-500':
+              loginForm.controls['password'].invalid &&
+              loginForm.controls['password'].touched,
+            'border-cust_grey':
+              loginForm.controls['password'].valid ||
+              !loginForm.controls['password'].touched
+          }"
+          class="w-full px-4 py-3 rounded-lg bg-cust_grey_dark text-cust_white placeholder-cust_grey focus:outline-none focus:ring-2 focus:ring-cust_pink border"
           placeholder="Enter your password"
           required
           name="password"
         />
+        <div
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched
+          "
+          class="text-red-500 text-sm mt-1"
+        >
+          Password is required.
+        </div>
       </div>
 
       <!-- Login Button -->
       <button
         type="submit"
+        [disabled]="loginForm.invalid"
         class="w-full px-4 py-3 rounded-lg bg-cust_pink text-cust_white hover:bg-opacity-90 transition-opacity duration-200 font-medium text-lg"
       >
         Log In
