@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Form, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +10,7 @@ import { Validators } from '@angular/forms';
 export class SignupComponent {
   signupForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
   ngOnInit() {
     this.signupForm = this.fb.group({
       name: [null, [Validators.required]],
@@ -29,8 +30,10 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      // Handle sign-up logic here
       console.log(this.signupForm.value);
+      this.authService.register(this.signupForm.value).subscribe((res) => {
+        console.log(res);
+      });
     }
   }
 }
