@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { AdminHeaderComponent } from './modules/admin/components/admin-header/admin-header.component';
+import { CustomerHeaderComponent } from './modules/customer/components/customer-header/customer-header.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ToastrModule } from 'ngx-toastr';
     SignupComponent,
     LoginheaderComponent,
     LandingpageComponent,
+    AdminHeaderComponent,
+    CustomerHeaderComponent,
   ],
   imports: [
     BrowserModule,

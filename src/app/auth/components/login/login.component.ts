@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -29,25 +30,44 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Login form data:', this.loginForm.value);
-      // this.authService.login(this.loginForm.value).subscribe(
-      //   (res) => {
-      //     console.log(res);
-      //     if (res.success) {
-      //       this.toastr.success('Login successful', '', {
-      //         timeOut: 2500,
-      //         positionClass: 'toast-top-center',
-      //         progressBar: true,
-      //       });
-      //       this.router.navigate(['dashboard']); // Change 'dashboard' to your desired route
-      //     } else {
-      //       this.toastr.error('Login failed: ' + res.message);
-      //     }
-      //   },
-      //   (err) => {
-      //     this.toastr.error('An error occurred during login.');
-      //     console.error(err);
-      //   }
-      // );
+      this.authService.login(this.loginForm.value).subscribe(
+        (res) => {
+          console.log(res);
+          if (res.userId != null) {
+            const user = {
+              id: res.userId,
+              role: res.userRole,
+            };
+            console.log(user);
+            StorageService.saveUser(user);
+            StorageService.saveToken(res.jwt);
+            this.toastr.success('Login successful', '', {
+              timeOut: 2500,
+              positionClass: 'toast-top-center',
+              progressBar: true,
+            });
+            console.log(StorageService.isAdminLoggedIn());
+            console.log(StorageService.isCustomerLoggedIn());
+            if (StorageService.isAdminLoggedIn()) {
+              this.router.navigateByUrl('/admin/dashboard');
+            } else if (StorageService.isCustomerLoggedIn()) {
+              this.router.navigateByUrl('/customer/dashboard');
+            } else {
+              this.toastr.error('Login unsuccessful', '', {
+                timeOut: 2500,
+                positionClass: 'toast-top-center',
+                progressBar: true,
+              });
+            }
+          } else {
+            this.toastr.error('Login failed: ' + res.message);
+          }
+        },
+        (err) => {
+          this.toastr.error('An error occurred during login.');
+          console.error(err);
+        }
+      );
     }
   }
 }
