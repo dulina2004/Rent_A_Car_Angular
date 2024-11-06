@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AdminService } from '../../services/admin.service';
 @Component({
   selector: 'app-post-car',
   templateUrl: './post-car.component.html',
@@ -32,7 +33,7 @@ export class PostCarComponent {
     2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023,
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private adminService: AdminService) {}
   ngOnInit() {
     this.postVehicleForm = this.fb.group({
       model: [null, Validators.required],
@@ -48,11 +49,11 @@ export class PostCarComponent {
   postVehicle() {
     console.log(this.postVehicleForm.value);
     const formData = new FormData();
-    formData.append('img', this.selectedFile!);
-    formData.append('model', this.postVehicleForm.get('model')?.value || '');
+    formData.append('image', this.selectedFile!);
+    formData.append('name', this.postVehicleForm.get('model')?.value || '');
     formData.append('brand', this.postVehicleForm.get('brand')?.value || '');
     formData.append('type', this.postVehicleForm.get('type')?.value || '');
-    formData.append('color', this.postVehicleForm.get('color')?.value || '');
+    formData.append('colour', this.postVehicleForm.get('color')?.value || '');
     formData.append(
       'transmission',
       this.postVehicleForm.get('transmission')?.value || ''
@@ -69,6 +70,15 @@ export class PostCarComponent {
     formData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
+
+    this.adminService.postcar(formData).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
   onFileSelected($event: any) {
     this.selectedFile = $event.target.files[0];
