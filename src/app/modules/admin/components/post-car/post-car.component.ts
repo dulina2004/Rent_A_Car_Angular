@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AdminService } from '../../services/admin.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-car',
   templateUrl: './post-car.component.html',
@@ -33,7 +35,12 @@ export class PostCarComponent {
     2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023,
   ];
 
-  constructor(private fb: FormBuilder, private adminService: AdminService) {}
+  constructor(
+    private fb: FormBuilder,
+    private adminService: AdminService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
   ngOnInit() {
     this.postVehicleForm = this.fb.group({
       model: [null, Validators.required],
@@ -71,14 +78,33 @@ export class PostCarComponent {
       console.log(`${key}: ${value}`);
     });
 
-    this.adminService.postcar(formData).subscribe(
-      (res) => {
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    try {
+      this.adminService.postcar(formData).subscribe(
+        (res) => {
+          console.log(res);
+          this.toastr.success('Car addess successful', '', {
+            timeOut: 2500,
+            positionClass: 'toast-top-center',
+            progressBar: true,
+          });
+          this.router.navigateByUrl('/admin/dashboard');
+        },
+        (error) => {
+          console.log(error);
+          this.toastr.error('Error Occored', '', {
+            timeOut: 2500,
+            positionClass: 'toast-top-center',
+            progressBar: true,
+          });
+        }
+      );
+    } catch (error) {
+      this.toastr.error('Error Occored', '', {
+        timeOut: 2500,
+        positionClass: 'toast-top-center',
+        progressBar: true,
+      });
+    }
   }
   onFileSelected($event: any) {
     this.selectedFile = $event.target.files[0];
