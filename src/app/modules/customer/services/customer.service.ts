@@ -10,12 +10,6 @@ const BASE_URL = ['http://localhost:8080'];
 export class CustomerService {
   constructor(private http: HttpClient) {}
 
-  postcar(carDto: any): Observable<any> {
-    return this.http.post(`${BASE_URL}/api/cutomer/car`, carDto, {
-      headers: this.createAuthorizationHeader(),
-    });
-  }
-
   getAllCars(): Observable<any> {
     return this.http.get(`${BASE_URL}/api/customer/cars`, {
       headers: this.createAuthorizationHeader(),
@@ -27,13 +21,11 @@ export class CustomerService {
       headers: this.createAuthorizationHeader(),
     });
   }
-  updateCar(carId: Number, carDto: any): Observable<any> {
-    return this.http.put(`${BASE_URL}/api/customer/car/${carId}`, carDto, {
+
+  bookCar(bookACar: any): Observable<any> {
+    return this.http.post(`${BASE_URL}/api/customer/car/book`, bookACar, {
       headers: this.createAuthorizationHeader(),
     });
-  }
-  deleteCar(id: number): Observable<any> {
-    return this.http.delete(`${BASE_URL}/api/customer/car/${id}`);
   }
   createAuthorizationHeader(): HttpHeaders {
     let authHeadeaders: HttpHeaders = new HttpHeaders();

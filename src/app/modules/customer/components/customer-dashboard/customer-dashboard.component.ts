@@ -34,26 +34,4 @@ export class CustomerDashboardComponent {
       });
     });
   }
-
-  deleteCar(id: number) {
-    this.customerService.deleteCar(id).subscribe({
-      next: () => {
-        this.getAllCars();
-        this.toastr.success('Deleted  successful', '', {
-          timeOut: 2500,
-          positionClass: 'toast-top-center',
-          progressBar: true,
-        });
-        window.location.reload();
-        //this.router.navigateByUrl('/admin/dashboard');
-      },
-      error: (err) => {
-        this.toastr.error('Error Occored', '', {
-          timeOut: 2500,
-          positionClass: 'toast-top-center',
-          progressBar: true,
-        });
-      },
-    });
-  }
 }

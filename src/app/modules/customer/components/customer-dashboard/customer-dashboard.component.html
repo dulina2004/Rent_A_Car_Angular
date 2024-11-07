@@ -46,7 +46,7 @@
           <!-- Action Buttons -->
           <div class="flex space-x-2">
             <button
-              (click)="deleteCar(car.id)"
+              routerLink="/customer/book/{{ car.id }}"
               class="flex-1 px-3 py-2 hover:bg-cust_grey text-cust_white font-semibold rounded-md hover:bg-red-700 transition-colors duration-200 text-sm"
             >
               Book
