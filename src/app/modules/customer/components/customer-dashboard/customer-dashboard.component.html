@@ -1,1 +1,67 @@
-<p>customer-dashboard works!</p>
+<div class="min-h-screen relative">
+  <!-- Background Image with Overlay -->
+  <div class="fixed inset-0">
+    <img
+      src="assets/img/bg1.jpg"
+      alt="Background"
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-cust_background/60 backdrop-blur-lg"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="relative z-10 container mx-auto px-4 pt-16">
+    <!-- Grid Container -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div
+        *ngFor="let car of cars"
+        class="flex bg-cust_grey_dark/70 rounded-lg border border-cust_grey overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+      >
+        <!-- Car Image -->
+        <div class="w-1/3">
+          <img
+            [src]="car.processedImg"
+            [alt]="car.brand + ' ' + car.name"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Car Details -->
+        <div class="w-2/3 p-4 flex flex-col justify-between">
+          <!-- Title -->
+          <h3 class="text-base font-semibold text-cust_pink mb-1">
+            {{ car.brand }} - {{ car.name }}
+          </h3>
+
+          <!-- Specifications -->
+          <div class="text-xs text-cust_white mb-2 space-y-1">
+            <p class="line-clamp-1">{{ car.brand }} - {{ car.name }}</p>
+            <p>
+              Price: ${{ car.price }} | Color: {{ car.colour }} | Transmission:
+              {{ car.transmission }} | Type: {{ car.type }} | Year:
+              {{ car.year }}
+            </p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex space-x-2">
+            <button
+              (click)="deleteCar(car.id)"
+              class="flex-1 px-3 py-2 hover:bg-cust_grey text-cust_white font-semibold rounded-md hover:bg-red-700 transition-colors duration-200 text-sm"
+            >
+              Book
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Cars Message -->
+      <div
+        *ngIf="!cars || cars.length === 0"
+        class="col-span-full text-center text-cust_white text-lg py-6"
+      >
+        No cars available at the moment.
+      </div>
+    </div>
+  </div>
+</div>
