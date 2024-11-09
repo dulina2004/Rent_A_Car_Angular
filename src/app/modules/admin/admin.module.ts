@@ -7,9 +7,10 @@ import { AdminHeaderComponent } from './components/admin-header/admin-header.com
 import { PostCarComponent } from './components/post-car/post-car.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateCarComponent } from './components/update-car/update-car.component';
+import { GetBookingsComponent } from './components/get-bookings/get-bookings.component';
 
 @NgModule({
-  declarations: [AdminDashboardComponent, PostCarComponent, UpdateCarComponent],
+  declarations: [AdminDashboardComponent, PostCarComponent, UpdateCarComponent, GetBookingsComponent],
   imports: [CommonModule, AdminRoutingModule, FormsModule, ReactiveFormsModule],
 })
 export class AdminModule {}

@@ -33,6 +33,11 @@ export class StorageService {
     if (user == null) return '';
     return user.role;
   }
+  static getUserId(): string {
+    const user = this.getUser();
+    if (user == null) return '';
+    return user.id;
+  }
 
   static isAdminLoggedIn(): boolean {
     if (this.getToken() == null) return false;

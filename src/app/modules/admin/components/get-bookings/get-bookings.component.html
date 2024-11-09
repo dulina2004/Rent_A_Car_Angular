@@ -3,7 +3,7 @@
 >
   <div class="fixed inset-0">
     <img
-      src="../../../../../assets/img/1.jpg"
+      src="../../../../../assets/img/bg1.jpg"
       alt="Background"
       class="w-full h-full object-cover"
     />
@@ -12,21 +12,26 @@
 
   <!-- Table Wrapper with Responsive Breakpoints -->
   <div
-    class="relative z-10 max-w-4xl mx-auto w-full lg:w-3/4 bg-opacity-70 backdrop-blur-md"
+    class="relative z-10 max-w-6xl mx-auto w-full lg:w-3/4 bg-opacity-70 backdrop-blur-md"
   >
     <!-- Table Layout for Desktop -->
-    <div class="hidden md:block overflow-hidden shadow-xl rounded-lg">
+    <div
+      class="hidden md:block overflow-hidden shadow-xl rounded-lg text-cust_white"
+    >
       <table class="min-w-full rounded-lg overflow-hidden">
         <!-- Table Header -->
         <thead class="bg-white">
           <tr
             class="bg-gray-900 bg-opacity-75 text-left text-white text-xs sm:text-sm uppercase font-semibold"
           >
+            <th class="px-4 py-3 sm:px-6">User</th>
+            <th class="px-4 py-3 sm:px-6">Email</th>
             <th class="px-4 py-3 sm:px-6">From</th>
             <th class="px-4 py-3 sm:px-6">To</th>
             <th class="px-4 py-3 sm:px-6">Days</th>
             <th class="px-4 py-3 sm:px-6">Price</th>
             <th class="px-4 py-3 sm:px-6">Status</th>
+            <th class="px-4 py-3 sm:px-6">Action</th>
           </tr>
         </thead>
 
@@ -39,6 +44,12 @@
             class="transition-colors duration-200"
           >
             <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+              {{ booking.username }}
+            </td>
+            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+              {{ booking.email }}
+            </td>
+            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
               {{ booking.fromDate }}
             </td>
             <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
@@ -50,18 +61,26 @@
             <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
               {{ booking.price }}
             </td>
-            <td class="px-4 py-3 sm:px-6 whitespace-nowrap">
-              <span
-                class="px-3 py-1 text-xs font-medium rounded-full"
-                [ngClass]="{
-                  'bg-red-100 text-red-600':
-                    booking.bookCarStatus === 'PENDING',
-                  'bg-green-100 text-green-600':
-                    booking.bookCarStatus === 'CONFIRMED'
-                }"
-              >
+            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+              <button class="cursor-not-allowed">
                 {{ booking.bookCarStatus }}
-              </span>
+              </button>
+            </td>
+            <td class="px-3 py-2 whitespace-nowrap space-x-2">
+              <div class="inline-flex mt-2 mb-2">
+                <button
+                  (click)="changeBookingStatus(booking.id, 'Approve')"
+                  class="bg-cust_pink hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-l"
+                >
+                  Accept
+                </button>
+                <button
+                  (click)="changeBookingStatus(booking.id, 'Reject')"
+                  class="bg-cust_grey hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-r"
+                >
+                  Reject
+                </button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -71,7 +90,7 @@
       <!-- Card Layout for Mobile -->
       <div
         *ngFor="let booking of bookings"
-        class="md:hidden bg-white bg-opacity-80 shadow-lg rounded-lg p-4 mb-4"
+        class="md:hidden bg-white bg-opacity-80 shadow-lg rounded-lg p-4 mb-4 text-cust_white"
       >
         <div class="flex justify-between items-center mb-2">
           <h3 class="text-lg font-semibold text-gray-900">Booking Details</h3>
