@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { StorageService } from '../../services/storage/storage.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -41,11 +41,21 @@ export class LoginComponent implements OnInit {
             console.log(user);
             StorageService.saveUser(user);
             StorageService.saveToken(res.jwt);
-            this.toastr.success('Login successful', '', {
-              timeOut: 2500,
-              positionClass: 'toast-top-center',
-              progressBar: true,
+            // this.toastr.success('Login successful', '', {
+            //   timeOut: 2500,
+            //   positionClass: 'toast-top-center',
+            //   progressBar: true,
+            // });
+            Swal.fire({
+              title: 'Login Successful',
+              icon: 'success',
+              background: '#282c33', // cust_background color
+              color: '#fff', // cust_white color
+              iconColor: '#c778dd', // cust_pink color
+              showConfirmButton: false,
+              timer: 1500,
             });
+
             console.log(StorageService.isAdminLoggedIn());
             console.log(StorageService.isCustomerLoggedIn());
             if (StorageService.isAdminLoggedIn()) {
@@ -53,18 +63,42 @@ export class LoginComponent implements OnInit {
             } else if (StorageService.isCustomerLoggedIn()) {
               this.router.navigateByUrl('/customer/dashboard');
             } else {
-              this.toastr.error('Login unsuccessful', '', {
-                timeOut: 2500,
-                positionClass: 'toast-top-center',
-                progressBar: true,
+              // this.toastr.error('Login unsuccessful', '', {
+              //   timeOut: 2500,
+              //   positionClass: 'toast-top-center',
+              //   progressBar: true,
+              // });
+              Swal.fire({
+                title: 'Login Unsuccessful',
+                text: 'Please Enter Correct Credentials!',
+                icon: 'error',
+                background: '#282c33', // cust_background color
+                color: '#fff', // cust_white color
+                iconColor: '#abb2bf', // cust_grey color
               });
             }
           } else {
-            this.toastr.error('Login failed: ' + res.message);
+            //this.toastr.error('Login failed: ' + res.message);
+            Swal.fire({
+              title: 'Login Unsuccessful',
+              text: 'Please Enter Correct Credentials!',
+              icon: 'error',
+              background: '#282c33', // cust_background color
+              color: '#fff', // cust_white color
+              iconColor: '#abb2bf', // cust_grey color
+            });
           }
         },
         (err) => {
-          this.toastr.error('An error occurred during login.');
+          //this.toastr.error('An error occurred during login.');
+          Swal.fire({
+            title: 'Login Unsuccessful',
+            text: 'Please Enter Correct Credentials!',
+            icon: 'error',
+            background: '#282c33', // cust_background color
+            color: '#fff', // cust_white color
+            iconColor: '#abb2bf', // cust_grey color
+          });
           console.error(err);
         }
       );

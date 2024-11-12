@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "ngx-toastr/toastr";
+
 .toast-top-center {
   top: 20px; /* Adjust the distance from the top */
   left: 50%;

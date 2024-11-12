@@ -16,7 +16,7 @@ module.exports = {
         },
       },
     },
-    // Overriding the default colors with custom colors only
+    // Overriding the default colors
     colors: {
       cust_grey: "#abb2bf",
       cust_grey_dark: "#2c3036",

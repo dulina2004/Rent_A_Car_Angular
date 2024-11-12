@@ -6,9 +6,10 @@ import { CustomerDashboardComponent } from './components/customer-dashboard/cust
 import { CustomerHeaderComponent } from './components/customer-header/customer-header.component';
 import { BookVehicleComponent } from './components/book-vehicle/book-vehicle.component';
 import { MyBookingsComponent } from './components/my-bookings/my-bookings.component';
+import { SearchCarComponent } from './components/search-car/search-car.component';
 
 @NgModule({
-  declarations: [CustomerDashboardComponent, BookVehicleComponent, MyBookingsComponent],
+  declarations: [CustomerDashboardComponent, BookVehicleComponent, MyBookingsComponent, SearchCarComponent],
   imports: [CommonModule, CustomerRoutingModule, ReactiveFormsModule],
 })
 export class CustomerModule {}
