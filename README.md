@@ -21,5 +21,5 @@ This repository contains the front-end implementation of the Rent-A-Car project,
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/rent-a-car-frontend.git
+   git clone https://github.com/dulina2004/rent-a-car-frontend.git
    ```
