@@ -62,7 +62,24 @@
               {{ booking.price }}
             </td>
             <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              <button class="cursor-not-allowed">
+              <button
+                *ngIf="booking.bookCarStatus === 'PENDING'"
+                class="cursor-not-allowed"
+              >
+                {{ booking.bookCarStatus }}
+              </button>
+
+              <button
+                *ngIf="booking.bookCarStatus === 'APPROVED'"
+                class="cursor-not-allowed text-cust_pink"
+              >
+                {{ booking.bookCarStatus }}
+              </button>
+
+              <button
+                *ngIf="booking.bookCarStatus === 'REJECTED'"
+                class="cursor-not-allowed text-cust_white"
+              >
                 {{ booking.bookCarStatus }}
               </button>
             </td>
@@ -97,19 +114,34 @@
           <span
             class="px-3 py-1 text-xs font-medium rounded-full"
             [ngClass]="{
-              'bg-red-100 text-red-600': booking.bookCarStatus === 'PENDING',
-              'bg-green-100 text-green-600':
-                booking.bookCarStatus === 'CONFIRMED'
+              'bg-red-100 text-cust_white': booking.bookCarStatus === 'PENDING',
+              'bg-green-100 text-cust_pink':
+                booking.bookCarStatus === 'APPROVED'
             }"
           >
             {{ booking.bookCarStatus }}
           </span>
         </div>
+
         <div class="text-sm text-gray-700">
           <p><strong>From:</strong> {{ booking.fromDate }}</p>
           <p><strong>To:</strong> {{ booking.toDate }}</p>
           <p><strong>Days:</strong> {{ booking.days }}</p>
           <p><strong>Price:</strong> ${{ booking.price }}</p>
+        </div>
+        <div class="inline-flex mt-2 mb-2">
+          <button
+            (click)="changeBookingStatus(booking.id, 'Approve')"
+            class="bg-cust_pink hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-l"
+          >
+            Accept
+          </button>
+          <button
+            (click)="changeBookingStatus(booking.id, 'Reject')"
+            class="bg-cust_grey hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-r"
+          >
+            Reject
+          </button>
         </div>
       </div>
     </div>
