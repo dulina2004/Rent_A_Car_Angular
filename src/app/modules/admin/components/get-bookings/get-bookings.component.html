@@ -11,14 +11,14 @@
   </div>
 
   <!-- Table Wrapper with Responsive Breakpoints -->
-  <div
-    class="relative z-10 max-w-6xl mx-auto w-full lg:w-3/4 bg-opacity-70 backdrop-blur-md"
-  >
-    <!-- Table Layout for Desktop -->
+  <div class="relative z-10 max-w-6xl mx-auto w-full lg:w-3/4">
+    <!-- Desktop -->
     <div
       class="hidden md:block overflow-hidden shadow-xl rounded-lg text-cust_white"
     >
-      <table class="min-w-full rounded-lg overflow-hidden">
+      <table
+        class="min-w-full rounded-lg overflow-hidden bg-opacity-70 backdrop-blur-md"
+      >
         <!-- Table Header -->
         <thead class="bg-white">
           <tr
@@ -37,74 +37,174 @@
 
         <!-- Table Body -->
         <tbody
+          class="card tbodyHover divide-y divide-gray-200 text-xs sm:text-sm bg-cust_background"
+        >
+          <tr
+            *ngFor="let booking of bookings"
+            class="transition-colors duration-200"
+          >
+            <ng-container *ngIf="booking.bookCarStatus === 'PENDING'">
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.username }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.email }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.fromDate }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.toDate }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.days }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.price }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                <button
+                  *ngIf="booking.bookCarStatus === 'PENDING'"
+                  class="cursor-not-allowed"
+                >
+                  {{ booking.bookCarStatus }}
+                </button>
+
+                <button
+                  *ngIf="booking.bookCarStatus === 'APPROVED'"
+                  class="cursor-not-allowed text-cust_pink"
+                >
+                  {{ booking.bookCarStatus }}
+                </button>
+
+                <button
+                  *ngIf="booking.bookCarStatus === 'REJECTED'"
+                  class="cursor-not-allowed text-cust_white"
+                >
+                  {{ booking.bookCarStatus }}
+                </button>
+              </td>
+              <td class="px-3 py-2 whitespace-nowrap space-x-2">
+                <div class="inline-flex mt-2 mb-2">
+                  <button
+                    (click)="changeBookingStatus(booking.id, 'Approve')"
+                    class="bg-cust_pink hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-l"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    (click)="changeBookingStatus(booking.id, 'Reject')"
+                    class="bg-cust_grey hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-r"
+                  >
+                    Reject
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div
+      class="hidden md:block overflow-hidden shadow-xl rounded-lg text-cust_white mt-16 bg-cust_grey_dark"
+    >
+      <table
+        class="min-w-full rounded-lg overflow-hidden bg-opacity-70 backdrop-blur-md"
+      >
+        <!-- <thead class="bg-white">
+          <tr
+            class="bg-gray-900 bg-opacity-75 text-left text-white text-xs sm:text-sm uppercase font-semibold"
+          >
+            <th class="px-4 py-3 sm:px-6">User</th>
+            <th class="px-4 py-3 sm:px-6">Email</th>
+            <th class="px-4 py-3 sm:px-6">From</th>
+            <th class="px-4 py-3 sm:px-6">To</th>
+            <th class="px-4 py-3 sm:px-6">Days</th>
+            <th class="px-4 py-3 sm:px-6">Price</th>
+            <th class="px-4 py-3 sm:px-6">Status</th>
+    
+          </tr>
+        </thead> -->
+
+        <!-- Table Body -->
+        <tbody
           class="card tbodyHover divide-y divide-gray-200 text-xs sm:text-sm"
         >
           <tr
             *ngFor="let booking of bookings"
             class="transition-colors duration-200"
           >
-            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              {{ booking.username }}
-            </td>
-            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              {{ booking.email }}
-            </td>
-            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              {{ booking.fromDate }}
-            </td>
-            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              {{ booking.toDate }}
-            </td>
-            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              {{ booking.days }}
-            </td>
-            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              {{ booking.price }}
-            </td>
-            <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
-              <button
-                *ngIf="booking.bookCarStatus === 'PENDING'"
-                class="cursor-not-allowed"
-              >
-                {{ booking.bookCarStatus }}
-              </button>
-
-              <button
-                *ngIf="booking.bookCarStatus === 'APPROVED'"
-                class="cursor-not-allowed text-cust_pink"
-              >
-                {{ booking.bookCarStatus }}
-              </button>
-
-              <button
-                *ngIf="booking.bookCarStatus === 'REJECTED'"
-                class="cursor-not-allowed text-cust_white"
-              >
-                {{ booking.bookCarStatus }}
-              </button>
-            </td>
-            <td class="px-3 py-2 whitespace-nowrap space-x-2">
-              <div class="inline-flex mt-2 mb-2">
+            <ng-container
+              *ngIf="
+                booking.bookCarStatus === 'APPROVED' ||
+                booking.bookCarStatus === 'REJECTED'
+              "
+            >
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.username }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.email }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.fromDate }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.toDate }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.days }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
+                {{ booking.price }}
+              </td>
+              <td class="px-4 py-3 sm:px-6 text-white whitespace-nowrap">
                 <button
-                  (click)="changeBookingStatus(booking.id, 'Approve')"
-                  class="bg-cust_pink hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-l"
+                  *ngIf="booking.bookCarStatus === 'PENDING'"
+                  class="cursor-not-allowed"
                 >
-                  Accept
+                  {{ booking.bookCarStatus }}
                 </button>
+
                 <button
-                  (click)="changeBookingStatus(booking.id, 'Reject')"
-                  class="bg-cust_grey hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-r"
+                  *ngIf="booking.bookCarStatus === 'APPROVED'"
+                  class="cursor-not-allowed text-cust_pink"
                 >
-                  Reject
+                  {{ booking.bookCarStatus }}
                 </button>
-              </div>
-            </td>
+
+                <button
+                  *ngIf="booking.bookCarStatus === 'REJECTED'"
+                  class="cursor-not-allowed text-cust_white"
+                >
+                  {{ booking.bookCarStatus }}
+                </button>
+              </td>
+              <!-- <td class="px-3 py-2 whitespace-nowrap space-x-2">
+                <div class="inline-flex mt-2 mb-2">
+                  <button
+                    (click)="changeBookingStatus(booking.id, 'Approve')"
+                    class="bg-cust_pink hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-l"
+                  >
+                    Accept
+                  </button>
+                  <button
+                    (click)="changeBookingStatus(booking.id, 'Reject')"
+                    class="bg-cust_grey hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded-r"
+                  >
+                    Reject
+                  </button>
+                </div>
+              </td> -->
+            </ng-container>
           </tr>
         </tbody>
       </table>
     </div>
+
     <div class="mt-24">
-      <!-- Card Layout for Mobile -->
+      <!-- Mobile -->
       <div
         *ngFor="let booking of bookings"
         class="md:hidden bg-white bg-opacity-80 shadow-lg rounded-lg p-4 mb-4 text-cust_white"

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-car',
@@ -167,9 +168,17 @@ export class UpdateCarComponent {
     // Send update request
     this.adminService.updateCar(this.carId, formData).subscribe({
       next: () => {
-        this.successMessage = 'Vehicle updated successfully!';
-        this.autoDismissSuccess();
-
+        //this.successMessage = 'Vehicle updated successfully!';
+        //this.autoDismissSuccess();
+        Swal.fire({
+          title: 'Updated Successful',
+          icon: 'success',
+          background: '#282c33', // cust_background color
+          color: '#fff', // cust_white color
+          iconColor: '#c778dd', // cust_pink color
+          showConfirmButton: false,
+          timer: 1500,
+        });
         // Navigate after showing success message
         setTimeout(() => {
           this.router.navigateByUrl('/admin/dashboard');
@@ -179,6 +188,14 @@ export class UpdateCarComponent {
         this.errorMessage =
           err.error.message || 'Update failed. Please try again.';
         this.autoDismissError();
+        Swal.fire({
+          title: 'Update Unsuccessful',
+          text: 'Please Enter Correct details!',
+          icon: 'error',
+          background: '#282c33', // cust_background color
+          color: '#fff', // cust_white color
+          iconColor: '#abb2bf', // cust_grey color
+        });
       },
     });
   }
