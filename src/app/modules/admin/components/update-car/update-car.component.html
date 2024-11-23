@@ -4,6 +4,7 @@
     alt="Background"
     class="w-full h-full object-cover"
   />
+
   <!-- Dark Overlay -->
   <div class="absolute inset-0 bg-cust_grey_dark opacity-60"></div>
 </div>
@@ -13,11 +14,15 @@
   <div
     class="card bg-surface bg-cust_grey_dark shadow-md rounded-lg p-6 w-full max-w-md transform scale-90 transition-transform duration-300 ease-in-out"
   >
-    <h2 class="text-xl font-bold text-center text-white mb-4">
+    <h2 class="text-xl font-bold text-center text-cust_white mb-4">
       Update Vehicle
     </h2>
 
-    <form [formGroup]="updateVehicleForm" (ngSubmit)="updateVehicle()">
+    <form
+      [formGroup]="updateVehicleForm"
+      (ngSubmit)="updateVehicle()"
+      class="text-cust_white"
+    >
       <!-- Image Upload Section -->
       <div class="mb-4 text-center">
         <div class="mb-4">
@@ -37,7 +42,7 @@
             {{ imagePreview ? "Change Image" : "Upload Image" }}
           </label>
           <input
-            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
             id="vehicle_image"
             type="file"
             accept="image/x-png,image/gif,image/jpeg"
@@ -53,7 +58,7 @@
         >
         <select
           id="vehicle-brand"
-          class="mt-1 block w-full border border-gray-300 rounded-lg p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
           formControlName="brand"
         >
           <option value="" disabled>Select Brand</option>
@@ -84,7 +89,7 @@
           <input
             type="text"
             id="vehicle-model"
-            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 pl-10 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
             placeholder="Enter Vehicle Model"
             formControlName="name"
           />
@@ -107,7 +112,7 @@
         >
         <select
           id="vehicle-type"
-          class="mt-1 block w-full border border-gray-300 rounded-lg p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
           formControlName="type"
         >
           <option value="" disabled>Select Type</option>
@@ -133,7 +138,7 @@
         >
         <select
           id="transmission"
-          class="mt-1 block w-full border border-gray-300 rounded-lg p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
           formControlName="transmission"
         >
           <option value="" disabled>Select Transmission</option>
@@ -162,7 +167,7 @@
         >
         <select
           id="year-picker"
-          class="mt-1 block w-full border border-gray-300 rounded-lg p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
           formControlName="year"
         >
           <option value="" disabled>Select Year</option>
@@ -188,7 +193,7 @@
         >
         <select
           id="vehicle-color"
-          class="mt-1 block w-full border border-gray-300 rounded-lg p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
           formControlName="colour"
         >
           <option value="" disabled>Select Color</option>
@@ -219,7 +224,7 @@
           <input
             type="number"
             id="rent-price"
-            class="mt-1 block w-full border border-gray-300 rounded-lg p-2 pl-10 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
             placeholder="Enter Rent Price"
             formControlName="price"
           />
@@ -244,7 +249,7 @@
         >
         <textarea
           id="vehicle-description"
-          class="mt-1 block w-full border border-gray-300 rounded-lg p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="mt-1 block w-full p-2 bg-gray-50 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-cust_grey border border-cust_grey_dark rounded-lg cursor-pointer bg-cust_background focus:outline-none"
           rows="3"
           placeholder="Enter Vehicle Description"
           formControlName="description"
@@ -254,7 +259,7 @@
       <!-- Submit Button -->
       <button
         type="submit"
-        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+        class="w-full bg-cust_pink hover:bg-cust_pink/80 text-cust_white font-semibold py-2 px-4 rounded-lg"
       >
         Update Vehicle
       </button>
